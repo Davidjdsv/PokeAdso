@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="flatlaf-3.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/flatlaf-3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/itext5-itextpdf-5.5.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.activation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-8.0.30.jar!/" />
+      <root url="file://$PROJECT_DIR$" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/src" />
+    </SOURCES>
+  </library>
+</component>
