@@ -3,17 +3,34 @@ package Vistas;
 import Controladores.PokemonDao;
 import Modelos.Pokemon;
 import Persistencia.ConexionDB;
+import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.sql.DataSource;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class PokemonGUI {
     private JPanel main;
@@ -165,6 +182,131 @@ public class PokemonGUI {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void generarPDF() {
+        try {
+            String nombreArchivo = "Listado pokedex.pdf";
+            Document document = new Document();
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(nombreArchivo));
+            //PdfWriter.getInstance(document, new FileOutputStream(nombreArchivo));
+            document.open();
+
+            // Cargar imagen de fondo desde ruta absoluta
+            String imagePath = "src/res/img/plantilla.jpg"; // imagen que subiste
+            Image background = Image.getInstance(imagePath);
+            background.setAbsolutePosition(0, 0);
+            background.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
+            writer.getDirectContentUnder().addImage(background);
+
+            // Título
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+            Paragraph title = new Paragraph("Pokedex", titleFont);
+            title.setAlignment(Paragraph.ALIGN_CENTER);
+            document.add(new Paragraph(" "));
+            document.add(new Paragraph(" "));
+            document.add(new Paragraph(" "));
+            document.add(title);
+
+            document.add(new Paragraph(" "));
+            document.add(new Paragraph("Pokemon:"));
+            document.add(new Paragraph(" "));
+
+            // Crear tabla con 3 columnas
+            PdfPTable pdfTable = new PdfPTable(7);
+            pdfTable.setWidthPercentage(100);
+            pdfTable.addCell("Nombre");
+            pdfTable.addCell("Tipo");
+            pdfTable.addCell("Peso");
+            pdfTable.addCell("Altura");
+            pdfTable.addCell("Descripcion");
+            pdfTable.addCell("ATK");
+            pdfTable.addCell("DEF");
+
+            // Llenar la tabla con los datos del JTable
+            for (int i = 0; i < tablePokemon.getRowCount(); i++) {
+                pdfTable.addCell(tablePokemon.getValueAt(i, 1).toString());
+                pdfTable.addCell(tablePokemon.getValueAt(i, 2).toString());
+                pdfTable.addCell(tablePokemon.getValueAt(i, 3).toString());
+                pdfTable.addCell(tablePokemon.getValueAt(i, 4).toString());
+                pdfTable.addCell(tablePokemon.getValueAt(i, 5).toString());
+                pdfTable.addCell(tablePokemon.getValueAt(i, 6).toString());
+                pdfTable.addCell(tablePokemon.getValueAt(i, 7).toString());
+
+            }
+
+            document.add(pdfTable);
+
+            document.add(new Paragraph(" "));
+
+            document.close();
+
+            JOptionPane.showMessageDialog(null, "Listado generado exitosamente como '" + nombreArchivo + "'");
+
+            // Abrir automáticamente el PDF
+            if (Desktop.isDesktopSupported()) {
+                File pdfFile = new File(nombreArchivo);
+                Desktop.getDesktop().open(pdfFile);
+            } else {
+                JOptionPane.showMessageDialog(null, "Tu sistema no soporta abrir el archivo automáticamente.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al generar la factura: " + e.getMessage());
+        }
+    }
+
+    public void enviarListado(String destinatario) {
+        final String remitente = ""; // Cambia por tu correo
+        final String contrasena = ""; // Contraseña de aplicación
+
+        // Configuración de propiedades
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(remitente, contrasena);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(remitente));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
+            message.setSubject("Listado de Pokedex");
+
+            // Cuerpo del mensaje
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText("Adjuntamos el listado de acudientes registrados en el sistema!");
+
+            // Adjuntar archivo
+            MimeBodyPart attachmentPart = new MimeBodyPart();
+            String archivo = "Listado pokedex.pdf";
+            DataSource source = (DataSource) new FileDataSource(archivo);
+            attachmentPart.setDataHandler(new DataHandler((javax.activation.DataSource) source));
+            attachmentPart.setFileName(archivo);
+
+            // Combinar texto + adjunto
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+            multipart.addBodyPart(attachmentPart);
+
+            message.setContent(multipart);
+
+            // Enviar mensaje
+            Transport.send(message);
+
+            JOptionPane.showMessageDialog(null, "Listado enviado exitosamente a " + destinatario);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al enviar el correo: " + e.getMessage());
         }
     }
 
