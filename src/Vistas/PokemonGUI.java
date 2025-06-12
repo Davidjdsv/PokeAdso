@@ -185,6 +185,7 @@ public class PokemonGUI {
         }
     }
 
+    // TODO: Método para generar el PDF
     public void generarPDF() {
         try {
             String nombreArchivo = "Listado pokedex.pdf";
@@ -258,6 +259,7 @@ public class PokemonGUI {
         }
     }
 
+    // TODO: Método para enviar el PDF por correo
     public void enviarListado(String destinatario) {
         final String remitente = ""; // Cambia por tu correo
         final String contrasena = ""; // Contraseña de aplicación
@@ -310,7 +312,6 @@ public class PokemonGUI {
         }
     }
 
-    // Método main para ejecutar la aplicación
     public static void main(String[] args) {
         JFrame frame = new JFrame("Pokedex");
         frame.setContentPane(new PokemonGUI().main);
