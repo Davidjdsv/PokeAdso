@@ -209,6 +209,20 @@ public class BatallaPokemon {
             idEntrenador = generarIdAleatorio();
             actualizarPokemonEntrenador();
         }
+
+        if(contadorEntrenador == 6 || contadorSalvaje == 6){
+            String ganador = sumaEntrenador > sumaSalvaje ? "Gana el entrenador con un número de victorias de: " + contadorEntrenador : "Gana el pokémon salvaje con un número de victorias de: " + contadorSalvaje;
+            JOptionPane.showMessageDialog(null, ganador);
+            JOptionPane.showMessageDialog(null, "Se empieza otra batalla pokémon!");
+
+            // Se reinicia el contador para empezar de nuevo a luchar
+            contSalvajeLabel.setText(String.valueOf(0));
+            contadorSalvaje = 0;
+            contEntrenadorLabel.setText(String.valueOf(0));
+            contadorEntrenador = 0;
+        }
+
+
     }
 
     public static void main(String[] args) {
