@@ -59,8 +59,8 @@ public class BatallaPokemon {
     private ImageIcon imagenSalvaje;
 
     private Random random = new Random();
-    private int idEntrenador;
-    private int idSalvaje;
+    public int idEntrenador;
+    public int idSalvaje;
 
     BatallaPokemon() {
         // Obtener el nombre del entrenador
@@ -200,10 +200,14 @@ public class BatallaPokemon {
             JOptionPane.showMessageDialog(null, "Gana el entrenador!\nSuma total de los stats de: " + nombrePokemonEntrenador + " es de: " + sumaEntrenador);
             contadorEntrenador += 1;
             contEntrenadorLabel.setText(String.valueOf(contadorEntrenador));
+            idSalvaje = generarIdAleatorio();
+            actualizarPokemonSalvaje();
         } else {
             JOptionPane.showMessageDialog(null, "Gana el salvaje!\nSuma total de los stats de: " + nombrePokemonSalvaje + " es de: " + sumaSalvaje);
             contadorSalvaje += 1;
             contSalvajeLabel.setText(String.valueOf(contadorSalvaje));
+            idEntrenador = generarIdAleatorio();
+            actualizarPokemonEntrenador();
         }
     }
 
