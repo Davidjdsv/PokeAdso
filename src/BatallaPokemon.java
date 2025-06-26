@@ -37,18 +37,25 @@ public class BatallaPokemon {
     //Botones para el random
     private JButton randomizarEntrenadorButton;
     private JButton randomizarSalvajeButton;
+    private JLabel contSalvajeLabel;
+    private JLabel contEntrenadorLabel;
+    private JButton lucharButton;
 
     // Variables para almacenar los datos de los Pokémon
     private String nombrePokemonEntrenador;
-    private int hpEntrenador;
-    private int ataqueEntrenador;
-    private int defensaEntrenador;
+    public int hpEntrenador;
+    public int ataqueEntrenador;
+    public int defensaEntrenador;
     private ImageIcon imagenEntrenador;
 
+    // Contadores
+    public int contadorEntrenador = 0;
+    public int contadorSalvaje = 0;
+
     private String nombrePokemonSalvaje;
-    private int hpSalvaje;
-    private int ataqueSalvaje;
-    private int defensaSalvaje;
+    public int hpSalvaje;
+    public int ataqueSalvaje;
+    public int defensaSalvaje;
     private ImageIcon imagenSalvaje;
 
     private Random random = new Random();
@@ -76,6 +83,14 @@ public class BatallaPokemon {
         randomizarSalvajeButton.addActionListener(e -> {
             idSalvaje = generarIdAleatorio();
             actualizarPokemonSalvaje();
+        });
+
+
+        lucharButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                combatirPokemon();
+            }
         });
     }
 
@@ -111,7 +126,7 @@ public class BatallaPokemon {
     }
 
     public int generarIdAleatorio() {
-        return random.nextInt(150) + 1;
+        return random.nextInt(1025) + 1;
     }
 
     public void obtenerPokemon(int pokemonSeleccionado, boolean esEntrenador) {
@@ -174,6 +189,21 @@ public class BatallaPokemon {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(main, "Error al cargar Pokémon", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void combatirPokemon(){
+        int sumaEntrenador = hpEntrenador + ataqueEntrenador + defensaEntrenador;
+        int sumaSalvaje = hpSalvaje + ataqueSalvaje + defensaSalvaje;
+
+        if(sumaEntrenador > sumaSalvaje){
+            JOptionPane.showMessageDialog(null, "Gana el entrenador!\nSuma total de los stats de: " + nombrePokemonEntrenador + " es de: " + sumaEntrenador);
+            contadorEntrenador += 1;
+            contEntrenadorLabel.setText(String.valueOf(contadorEntrenador));
+        } else {
+            JOptionPane.showMessageDialog(null, "Gana el salvaje!\nSuma total de los stats de: " + nombrePokemonSalvaje + " es de: " + sumaSalvaje);
+            contadorSalvaje += 1;
+            contSalvajeLabel.setText(String.valueOf(contadorSalvaje));
         }
     }
 
