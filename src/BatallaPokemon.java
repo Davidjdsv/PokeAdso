@@ -3,6 +3,8 @@ import org.json.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URI;
 import java.net.URL;
 import java.net.http.HttpClient;
@@ -13,75 +15,112 @@ import java.util.Random;
 public class BatallaPokemon {
     private JPanel main;
 
-    // Entrenador
+    // Nombre del entrenador (label)
     private JLabel nombreEntrenadorLabel;
 
-    //Pokémon entrenador
+    // Pokémon Entrenador
     private JLabel nombrePokeEntrenador;
     private JLabel vidaPokeEntrenador;
     private JLabel ataquePokeEntrenador;
-    private JLabel defensaPokeEntrenador;  // Nuevo JLabel para defensa
+    private JLabel defensaPokeEntrenador;
 
-    // Pokémon salvaje
+    // Pokémon Salvaje
     private JLabel vidaPokeSalvaje;
     private JLabel ataquePokeSalvaje;
-    private JLabel defensaPokeSalvaje;  // Nuevo JLabel para defensa
+    private JLabel defensaPokeSalvaje;
     private JLabel nombrePokeSalvaje;
 
-    // Imagenes
-    private JLabel imagenPokeEntrenador;    // Nuevo JLabel para imagen
-    private JLabel imagenPokeSalvaje;   // Nuevo JLabel para imagen
+    // Imagenes random
+    private JLabel imagenPokeEntrenador;
+    private JLabel imagenPokeSalvaje;
+
+    //Botones para el random
+    private JButton randomizarEntrenadorButton;
+    private JButton randomizarSalvajeButton;
 
     // Variables para almacenar los datos de los Pokémon
-    private String getNombreEntrenador;
+    private String nombrePokemonEntrenador;
     private int hpEntrenador;
     private int ataqueEntrenador;
     private int defensaEntrenador;
     private ImageIcon imagenEntrenador;
 
-    private String nombreSalvaje;
+    private String nombrePokemonSalvaje;
     private int hpSalvaje;
     private int ataqueSalvaje;
     private int defensaSalvaje;
     private ImageIcon imagenSalvaje;
 
-    BatallaPokemon() {
-        // Obtener datos de los Pokémon
+    private Random random = new Random();
+    private int idEntrenador;
+    private int idSalvaje;
 
-        // Obtener el nombre del entrenador a jugar
-        String nombre = JOptionPane.showInputDialog("¿Cómo te llamas? ");
+    BatallaPokemon() {
+        // Obtener el nombre del entrenador
+        String nombre = JOptionPane.showInputDialog("¿Cómo te llamas, jóven maestro Pokémon? ");
         nombreEntrenadorLabel.setText(nombre);
 
-        obtenerPokemon(entrenador, true);  // Pokémon para Entrenador
-        obtenerPokemon(pokeSalvaje, false); // Pokémon para Salvaje
+        // Generar primeros Pokémon
+        idEntrenador = generarIdAleatorio();
+        idSalvaje = generarIdAleatorio();
+        actualizarPokemones();
 
-        // Configurar GUI con los datos obtenidos
-        nombrePokeEntrenador.setText(String.valueOf(getNombreEntrenador));
+        // Configurar botones
+
+        //TODO: Una vez generado un id aleatorio, lo guarda en la variable idEntrenador y se llama el método para actualizar la interfaz
+        randomizarEntrenadorButton.addActionListener(e -> {
+            idEntrenador = generarIdAleatorio();
+            actualizarPokemonEntrenador();
+        });
+
+        randomizarSalvajeButton.addActionListener(e -> {
+            idSalvaje = generarIdAleatorio();
+            actualizarPokemonSalvaje();
+        });
+    }
+
+    private void actualizarPokemones() {
+        obtenerPokemon(idEntrenador, true);
+        obtenerPokemon(idSalvaje, false);
+        actualizarInterfaz();
+    }
+
+    private void actualizarPokemonEntrenador() {
+        obtenerPokemon(idEntrenador, true);
+        actualizarInterfaz();
+    }
+
+    private void actualizarPokemonSalvaje() {
+        obtenerPokemon(idSalvaje, false);
+        actualizarInterfaz();
+    }
+
+    // TODO: Refresca la interfaz y vuelve a llamar los datos
+    private void actualizarInterfaz() {
+        nombrePokeEntrenador.setText(nombrePokemonEntrenador);
         vidaPokeEntrenador.setText("HP: " + hpEntrenador);
         ataquePokeEntrenador.setText("Ataque: " + ataqueEntrenador);
         defensaPokeEntrenador.setText("Defensa: " + defensaEntrenador);
         imagenPokeEntrenador.setIcon(imagenEntrenador);
 
-        nombrePokeSalvaje.setText(nombreSalvaje);
+        nombrePokeSalvaje.setText(nombrePokemonSalvaje);
         vidaPokeSalvaje.setText("HP: " + hpSalvaje);
         ataquePokeSalvaje.setText("Ataque: " + ataqueSalvaje);
         defensaPokeSalvaje.setText("Defensa: " + defensaSalvaje);
         imagenPokeSalvaje.setIcon(imagenSalvaje);
     }
 
-    Random random = new Random();
-
     public int generarIdAleatorio() {
         return random.nextInt(150) + 1;
     }
 
-    int entrenador = generarIdAleatorio();
-    int pokeSalvaje = generarIdAleatorio();
-
     public void obtenerPokemon(int pokemonSeleccionado, boolean esEntrenador) {
         try {
             HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://pokeapi.co/api/v2/pokemon/" + pokemonSeleccionado)).GET().build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://pokeapi.co/api/v2/pokemon/" + pokemonSeleccionado))
+                    .GET()
+                    .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             JSONObject json = new JSONObject(response.body());
@@ -119,35 +158,34 @@ public class BatallaPokemon {
 
                 // Almacenar los datos según corresponda
                 if (esEntrenador) {
-                    getNombreEntrenador = nombre;
+                    nombrePokemonEntrenador = nombre;
                     hpEntrenador = hp;
                     ataqueEntrenador = attack;
                     defensaEntrenador = defense;
                     imagenEntrenador = imagen;
                 } else {
-                    nombreSalvaje = nombre;
+                    nombrePokemonSalvaje = nombre;
                     hpSalvaje = hp;
                     ataqueSalvaje = attack;
                     defensaSalvaje = defense;
                     imagenSalvaje = imagen;
                 }
-
-            } else {
-                System.out.println("Error: " + response.statusCode());
             }
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(main, "Error al cargar Pokémon", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Batalla Pokémon");
-        frame.setContentPane(new BatallaPokemon().main);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-        frame.setSize(1006, 550);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Batalla Pokémon");
+            frame.setContentPane(new BatallaPokemon().main);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.pack();
+            frame.setSize(1006, 550);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        });
     }
 }
