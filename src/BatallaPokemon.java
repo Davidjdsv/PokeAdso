@@ -12,19 +12,28 @@ import java.util.Random;
 
 public class BatallaPokemon {
     private JPanel main;
+
+    // Entrenador
+    private JLabel nombreEntrenadorLabel;
+
+    //Pokémon entrenador
+    private JLabel nombrePokeEntrenador;
     private JLabel vidaPokeEntrenador;
     private JLabel ataquePokeEntrenador;
     private JLabel defensaPokeEntrenador;  // Nuevo JLabel para defensa
+
+    // Pokémon salvaje
     private JLabel vidaPokeSalvaje;
     private JLabel ataquePokeSalvaje;
     private JLabel defensaPokeSalvaje;  // Nuevo JLabel para defensa
     private JLabel nombrePokeSalvaje;
-    private JLabel nombrePokeEntrenador;
+
+    // Imagenes
     private JLabel imagenPokeEntrenador;    // Nuevo JLabel para imagen
     private JLabel imagenPokeSalvaje;   // Nuevo JLabel para imagen
 
     // Variables para almacenar los datos de los Pokémon
-    private JLabel nombreEntrenador;
+    private String getNombreEntrenador;
     private int hpEntrenador;
     private int ataqueEntrenador;
     private int defensaEntrenador;
@@ -39,13 +48,15 @@ public class BatallaPokemon {
     BatallaPokemon() {
         // Obtener datos de los Pokémon
 
+        // Obtener el nombre del entrenador a jugar
         String nombre = JOptionPane.showInputDialog("¿Cómo te llamas? ");
+        nombreEntrenadorLabel.setText(nombre);
 
         obtenerPokemon(entrenador, true);  // Pokémon para Entrenador
         obtenerPokemon(pokeSalvaje, false); // Pokémon para Salvaje
 
         // Configurar GUI con los datos obtenidos
-        nombrePokeEntrenador.setText(String.valueOf(nombreEntrenador));
+        nombrePokeEntrenador.setText(String.valueOf(getNombreEntrenador));
         vidaPokeEntrenador.setText("HP: " + hpEntrenador);
         ataquePokeEntrenador.setText("Ataque: " + ataqueEntrenador);
         defensaPokeEntrenador.setText("Defensa: " + defensaEntrenador);
@@ -108,7 +119,7 @@ public class BatallaPokemon {
 
                 // Almacenar los datos según corresponda
                 if (esEntrenador) {
-                    nombreEntrenador.getText(nombre);
+                    getNombreEntrenador = nombre;
                     hpEntrenador = hp;
                     ataqueEntrenador = attack;
                     defensaEntrenador = defense;
