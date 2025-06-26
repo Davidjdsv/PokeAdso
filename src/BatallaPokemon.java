@@ -12,47 +12,50 @@ import java.util.Random;
 
 public class BatallaPokemon {
     private JPanel main;
-    private JLabel vidaPokeAsh;
-    private JLabel ataquePokeAsh;
-    private JLabel defensaPokeAsh;  // Nuevo JLabel para defensa
-    private JLabel vidaPokeRival;
-    private JLabel ataquePokeRival;
-    private JLabel defensaPokeRival;  // Nuevo JLabel para defensa
-    private JLabel nombrePokeRival;
-    private JLabel nombrePokeAsh;
-    private JLabel imagenPokeAsh;    // Nuevo JLabel para imagen
-    private JLabel imagenPokeRival;   // Nuevo JLabel para imagen
+    private JLabel vidaPokeEntrenador;
+    private JLabel ataquePokeEntrenador;
+    private JLabel defensaPokeEntrenador;  // Nuevo JLabel para defensa
+    private JLabel vidaPokeSalvaje;
+    private JLabel ataquePokeSalvaje;
+    private JLabel defensaPokeSalvaje;  // Nuevo JLabel para defensa
+    private JLabel nombrePokeSalvaje;
+    private JLabel nombrePokeEntrenador;
+    private JLabel imagenPokeEntrenador;    // Nuevo JLabel para imagen
+    private JLabel imagenPokeSalvaje;   // Nuevo JLabel para imagen
 
     // Variables para almacenar los datos de los Pokémon
-    private String nombreAsh;
-    private int hpAsh;
-    private int ataqueAsh;
-    private int defensaAsh;
-    private ImageIcon imagenAsh;
+    private JLabel nombreEntrenador;
+    private int hpEntrenador;
+    private int ataqueEntrenador;
+    private int defensaEntrenador;
+    private ImageIcon imagenEntrenador;
 
-    private String nombreRival;
-    private int hpRival;
-    private int ataqueRival;
-    private int defensaRival;
-    private ImageIcon imagenRival;
+    private String nombreSalvaje;
+    private int hpSalvaje;
+    private int ataqueSalvaje;
+    private int defensaSalvaje;
+    private ImageIcon imagenSalvaje;
 
     BatallaPokemon() {
         // Obtener datos de los Pokémon
-        obtenerPokemon(entrenador1, true);  // Pokémon para Ash
-        obtenerPokemon(entrenador2, false); // Pokémon para Rival
+
+        String nombre = JOptionPane.showInputDialog("¿Cómo te llamas? ");
+
+        obtenerPokemon(entrenador, true);  // Pokémon para Entrenador
+        obtenerPokemon(pokeSalvaje, false); // Pokémon para Salvaje
 
         // Configurar GUI con los datos obtenidos
-        nombrePokeAsh.setText(nombreAsh);
-        vidaPokeAsh.setText("HP: " + hpAsh);
-        ataquePokeAsh.setText("Ataque: " + ataqueAsh);
-        defensaPokeAsh.setText("Defensa: " + defensaAsh);
-        imagenPokeAsh.setIcon(imagenAsh);
+        nombrePokeEntrenador.setText(String.valueOf(nombreEntrenador));
+        vidaPokeEntrenador.setText("HP: " + hpEntrenador);
+        ataquePokeEntrenador.setText("Ataque: " + ataqueEntrenador);
+        defensaPokeEntrenador.setText("Defensa: " + defensaEntrenador);
+        imagenPokeEntrenador.setIcon(imagenEntrenador);
 
-        nombrePokeRival.setText(nombreRival);
-        vidaPokeRival.setText("HP: " + hpRival);
-        ataquePokeRival.setText("Ataque: " + ataqueRival);
-        defensaPokeRival.setText("Defensa: " + defensaRival);
-        imagenPokeRival.setIcon(imagenRival);
+        nombrePokeSalvaje.setText(nombreSalvaje);
+        vidaPokeSalvaje.setText("HP: " + hpSalvaje);
+        ataquePokeSalvaje.setText("Ataque: " + ataqueSalvaje);
+        defensaPokeSalvaje.setText("Defensa: " + defensaSalvaje);
+        imagenPokeSalvaje.setIcon(imagenSalvaje);
     }
 
     Random random = new Random();
@@ -61,10 +64,10 @@ public class BatallaPokemon {
         return random.nextInt(150) + 1;
     }
 
-    int entrenador1 = generarIdAleatorio();
-    int entrenador2 = generarIdAleatorio();
+    int entrenador = generarIdAleatorio();
+    int pokeSalvaje = generarIdAleatorio();
 
-    public void obtenerPokemon(int pokemonSeleccionado, boolean esAsh) {
+    public void obtenerPokemon(int pokemonSeleccionado, boolean esEntrenador) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://pokeapi.co/api/v2/pokemon/" + pokemonSeleccionado)).GET().build();
@@ -104,18 +107,18 @@ public class BatallaPokemon {
                 ImageIcon imagen = new ImageIcon(scaledImage);
 
                 // Almacenar los datos según corresponda
-                if (esAsh) {
-                    nombreAsh = nombre;
-                    hpAsh = hp;
-                    ataqueAsh = attack;
-                    defensaAsh = defense;
-                    imagenAsh = imagen;
+                if (esEntrenador) {
+                    nombreEntrenador.getText(nombre);
+                    hpEntrenador = hp;
+                    ataqueEntrenador = attack;
+                    defensaEntrenador = defense;
+                    imagenEntrenador = imagen;
                 } else {
-                    nombreRival = nombre;
-                    hpRival = hp;
-                    ataqueRival = attack;
-                    defensaRival = defense;
-                    imagenRival = imagen;
+                    nombreSalvaje = nombre;
+                    hpSalvaje = hp;
+                    ataqueSalvaje = attack;
+                    defensaSalvaje = defense;
+                    imagenSalvaje = imagen;
                 }
 
             } else {
