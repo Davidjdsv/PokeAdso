@@ -40,9 +40,12 @@ public class BatallaPokemon {
     private JLabel contSalvajeLabel;
     private JLabel contEntrenadorLabel;
     private JButton lucharButton;
+    private JLabel pokedexIdEntrenadorLabel;
+    private JLabel pokedexIdSalvajeLabel;
 
-    // Variables para almacenar los datos de los Pokémon
+    // TODO: Variables para almacenar los datos de los Pokémon
     private String nombrePokemonEntrenador;
+    public int idPokeEntrenador; // Id Pokedex
     public int hpEntrenador;
     public int ataqueEntrenador;
     public int defensaEntrenador;
@@ -53,6 +56,7 @@ public class BatallaPokemon {
     public int contadorSalvaje = 0;
 
     private String nombrePokemonSalvaje;
+    public int idPokeSalvaje; // Id Pokedex
     public int hpSalvaje;
     public int ataqueSalvaje;
     public int defensaSalvaje;
@@ -114,12 +118,14 @@ public class BatallaPokemon {
     private void actualizarInterfaz() {
         nombrePokeEntrenador.setText(nombrePokemonEntrenador);
         vidaPokeEntrenador.setText("HP: " + hpEntrenador);
+        pokedexIdEntrenadorLabel.setText("Id Pokédex: " + idPokeEntrenador);
         ataquePokeEntrenador.setText("Ataque: " + ataqueEntrenador);
         defensaPokeEntrenador.setText("Defensa: " + defensaEntrenador);
         imagenPokeEntrenador.setIcon(imagenEntrenador);
 
         nombrePokeSalvaje.setText(nombrePokemonSalvaje);
         vidaPokeSalvaje.setText("HP: " + hpSalvaje);
+        pokedexIdSalvajeLabel.setText("Id Pokédex: " + idPokeSalvaje);
         ataquePokeSalvaje.setText("Ataque: " + ataqueSalvaje);
         defensaPokeSalvaje.setText("Defensa: " + defensaSalvaje);
         imagenPokeSalvaje.setIcon(imagenSalvaje);
@@ -142,6 +148,9 @@ public class BatallaPokemon {
 
             if (response.statusCode() == 200) {
                 String nombre = json.getString("name");
+                int idPoke = json.getInt("id");
+                pokedexIdEntrenadorLabel.setText("Id Pokédex: " + idPokeEntrenador);
+
                 int hp = 0;
                 int attack = 0;
                 int defense = 0;
@@ -174,12 +183,14 @@ public class BatallaPokemon {
                 // Almacenar los datos según corresponda
                 if (esEntrenador) {
                     nombrePokemonEntrenador = nombre;
+                    idPokeEntrenador = idPoke;
                     hpEntrenador = hp;
                     ataqueEntrenador = attack;
                     defensaEntrenador = defense;
                     imagenEntrenador = imagen;
                 } else {
                     nombrePokemonSalvaje = nombre;
+                    idPokeSalvaje = idPoke;
                     hpSalvaje = hp;
                     ataqueSalvaje = attack;
                     defensaSalvaje = defense;
