@@ -66,10 +66,14 @@ public class BatallaPokemon {
     public int idEntrenador;
     public int idSalvaje;
 
+    /**
+     @author
+     * En el constructor, agregamos los botones y dentro de cada botón, agregamos que se disparen las funciones requeridas.
+     */
     BatallaPokemon() {
         // Obtener el nombre del entrenador
         String nombre = JOptionPane.showInputDialog("¿Cómo te llamas, jóven maestro Pokémon? ");
-        nombreEntrenadorLabel.setText(nombre);
+        nombreEntrenadorLabel.setText(nombre); // En el label "nombreEntrenadorLabel", "seteamos"/agregamos el nombre que haya ingresado el usuario
 
         // Generar primeros Pokémon
         idEntrenador = generarIdAleatorio();
@@ -90,6 +94,10 @@ public class BatallaPokemon {
         });
 
 
+        /**
+         * @author Davidjdsv
+         * Se ejecuta el método para hacer combatir a los pokémon
+         */
         lucharButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,6 +105,7 @@ public class BatallaPokemon {
             }
         });
     }
+
 
     private void actualizarPokemones() {
         obtenerPokemon(idEntrenador, true);
@@ -115,6 +124,10 @@ public class BatallaPokemon {
     }
 
     // TODO: Refresca la interfaz y vuelve a llamar los datos
+    /**
+    @author Davidjdsv
+     En cada label "setea", pone/agrega texto y la variable que contiene la información.
+     */
     private void actualizarInterfaz() {
         nombrePokeEntrenador.setText(nombrePokemonEntrenador);
         vidaPokeEntrenador.setText("HP: " + hpEntrenador);
@@ -131,10 +144,23 @@ public class BatallaPokemon {
         imagenPokeSalvaje.setIcon(imagenSalvaje);
     }
 
+    /**
+    @author Davidjdsv
+     Randomiza el Pokémon de entre los más de 1000 existentes
+     */
     public int generarIdAleatorio() {
         return random.nextInt(1025) + 1;
     }
 
+
+    /**
+     * @author Davidjdsv
+     * TODO: El método obtenerPokemon() consulta la pokeAPI y requiere de 2 párametros:
+     * @param pokemonSeleccionado (int) que es un número random ya elegido
+     * @param esEntrenador (boolean) que verifica si es entrenador o es la CPU
+     *
+     * Consultamos la pokeAPI mediante la siguiente estructura
+     */
     public void obtenerPokemon(int pokemonSeleccionado, boolean esEntrenador) {
         try {
             HttpClient client = HttpClient.newHttpClient();

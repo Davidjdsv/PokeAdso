@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="BatallaPokemon">
-  <grid id="27dc6" binding="main" layout-manager="GridLayoutManager" row-count="13" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="main" layout-manager="GridLayoutManager" row-count="13" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="20" left="20" bottom="20" right="20"/>
     <constraints>
-      <xy x="20" y="20" width="1024" height="632"/>
+      <xy x="20" y="20" width="1312" height="632"/>
     </constraints>
     <properties>
       <background color="-13553359"/>
@@ -12,7 +12,7 @@
     <children>
       <component id="b5a09" class="javax.swing.JLabel">
         <constraints>
-          <grid row="0" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-1"/>
@@ -28,28 +28,28 @@
       </hspacer>
       <hspacer id="98a16">
         <constraints>
-          <grid row="0" column="6" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="5" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
       <component id="95f3f" class="javax.swing.JLabel">
         <constraints>
-          <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
           <foreground color="-1"/>
           <text value="Pokémon Salvaje"/>
         </properties>
       </component>
       <vspacer id="e98df">
         <constraints>
-          <grid row="12" column="5" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="12" column="4" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <vspacer id="1ae0d">
         <constraints>
-          <grid row="12" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="12" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <component id="5c3f3" class="javax.swing.JLabel">
@@ -58,146 +58,25 @@
         </constraints>
         <properties>
           <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
           <foreground color="-1"/>
           <text value="Entrenador:"/>
         </properties>
       </component>
       <component id="ff86b" class="javax.swing.JLabel" binding="nombrePokeEntrenador">
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
           <foreground color="-1"/>
           <text value="Label"/>
         </properties>
       </component>
-      <component id="686ed" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="Vida:"/>
-        </properties>
-      </component>
-      <component id="5ede" class="javax.swing.JLabel" binding="vidaPokeSalvaje">
-        <constraints>
-          <grid row="6" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="VidaPoke:"/>
-        </properties>
-      </component>
-      <component id="b9d69" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="7" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="Ataque:"/>
-        </properties>
-      </component>
-      <component id="df78e" class="javax.swing.JLabel" binding="ataquePokeSalvaje">
-        <constraints>
-          <grid row="7" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="AtaquePoke:"/>
-        </properties>
-      </component>
-      <component id="7e978" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="Vida:"/>
-        </properties>
-      </component>
-      <component id="41e17" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="Ataque"/>
-        </properties>
-      </component>
-      <component id="7050b" class="javax.swing.JLabel" binding="ataquePokeEntrenador">
-        <constraints>
-          <grid row="7" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="AtaquePoke:"/>
-        </properties>
-      </component>
-      <component id="246f5" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="Defensa:"/>
-        </properties>
-      </component>
-      <component id="20c8c" class="javax.swing.JLabel" binding="defensaPokeEntrenador">
-        <constraints>
-          <grid row="8" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="DefensaPoke:"/>
-        </properties>
-      </component>
-      <component id="502ed" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="8" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="Defensa:"/>
-        </properties>
-      </component>
-      <component id="31988" class="javax.swing.JLabel" binding="defensaPokeSalvaje">
-        <constraints>
-          <grid row="8" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="DefensaPoke"/>
-        </properties>
-      </component>
       <hspacer id="ecaf1">
         <constraints>
-          <grid row="3" column="2" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
       <hspacer id="1eb65">
@@ -215,28 +94,17 @@
       </component>
       <hspacer id="f1714">
         <constraints>
-          <grid row="3" column="7" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
       <hspacer id="998d4">
         <constraints>
-          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <component id="f7f59" class="javax.swing.JLabel" binding="nombrePokeSalvaje">
-        <constraints>
-          <grid row="1" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="Label"/>
-        </properties>
-      </component>
       <component id="2f3f1" class="javax.swing.JLabel" binding="imagenPokeSalvaje">
         <constraints>
-          <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value=""/>
@@ -248,7 +116,207 @@
         </constraints>
         <properties>
           <background color="-1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-1"/>
+          <text value="Label"/>
+        </properties>
+      </component>
+      <vspacer id="41969">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="7" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="8d77e" class="javax.swing.JButton" binding="randomizarSalvajeButton" default-binding="true">
+        <constraints>
+          <grid row="11" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1886963"/>
           <font name="JetBrains Mono NL" style="1"/>
+          <foreground color="-458761"/>
+          <text value="Randomizar Salvaje"/>
+        </properties>
+      </component>
+      <component id="51996" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="JetBrains Mono" size="48" style="1"/>
+          <foreground color="-458761"/>
+          <text value="VS"/>
+        </properties>
+      </component>
+      <vspacer id="dcb94">
+        <constraints>
+          <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="36771" class="javax.swing.JLabel" binding="contEntrenadorLabel">
+        <constraints>
+          <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-1"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="792d2" class="javax.swing.JLabel" binding="contSalvajeLabel">
+        <constraints>
+          <grid row="9" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-1"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="1061d" class="javax.swing.JButton" binding="lucharButton" default-binding="true">
+        <constraints>
+          <grid row="11" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1886963"/>
+          <foreground color="-458761"/>
+          <text value="Luchar!"/>
+        </properties>
+      </component>
+      <component id="bd440" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-458761"/>
+          <text value="Num Pokédex:"/>
+        </properties>
+      </component>
+      <component id="a4434" class="javax.swing.JLabel" binding="pokedexIdSalvajeLabel">
+        <constraints>
+          <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-458761"/>
+          <text value="Label"/>
+        </properties>
+      </component>
+      <component id="4c40b" class="javax.swing.JLabel" binding="vidaPokeEntrenador">
+        <constraints>
+          <grid row="6" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-1"/>
+          <text value="VidaPoke:"/>
+        </properties>
+      </component>
+      <component id="7050b" class="javax.swing.JLabel" binding="ataquePokeEntrenador">
+        <constraints>
+          <grid row="7" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-1"/>
+          <text value="AtaquePoke:"/>
+        </properties>
+      </component>
+      <component id="20c8c" class="javax.swing.JLabel" binding="defensaPokeEntrenador">
+        <constraints>
+          <grid row="8" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-1"/>
+          <text value="DefensaPoke:"/>
+        </properties>
+      </component>
+      <component id="8db5a" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="9" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-1"/>
+          <text value="Victorias entrenador:"/>
+        </properties>
+      </component>
+      <component id="5ede" class="javax.swing.JLabel" binding="vidaPokeSalvaje">
+        <constraints>
+          <grid row="6" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-1"/>
+          <text value="VidaPoke:"/>
+        </properties>
+      </component>
+      <component id="df78e" class="javax.swing.JLabel" binding="ataquePokeSalvaje">
+        <constraints>
+          <grid row="7" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-1"/>
+          <text value="AtaquePoke:"/>
+        </properties>
+      </component>
+      <component id="31988" class="javax.swing.JLabel" binding="defensaPokeSalvaje">
+        <constraints>
+          <grid row="8" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-1"/>
+          <text value="DefensaPoke"/>
+        </properties>
+      </component>
+      <component id="ea6e4" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="9" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-1"/>
+          <text value="Victorias salvaje:"/>
+        </properties>
+      </component>
+      <component id="48c62" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-458761"/>
+          <text value="Num Pokédex:"/>
+        </properties>
+      </component>
+      <component id="78f57" class="javax.swing.JLabel" binding="pokedexIdEntrenadorLabel">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="JetBrains Mono" size="24" style="1"/>
+          <foreground color="-458761"/>
+          <text value="Label"/>
+        </properties>
+      </component>
+      <component id="f7f59" class="javax.swing.JLabel" binding="nombrePokeSalvaje">
+        <constraints>
+          <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="JetBrains Mono" size="24" style="1"/>
           <foreground color="-1"/>
           <text value="Label"/>
         </properties>
@@ -262,134 +330,6 @@
           <font name="JetBrains Mono NL" style="1"/>
           <foreground color="-458761"/>
           <text value="Randomizar Entrenador"/>
-        </properties>
-      </component>
-      <vspacer id="41969">
-        <constraints>
-          <grid row="10" column="0" row-span="1" col-span="8" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </vspacer>
-      <component id="8d77e" class="javax.swing.JButton" binding="randomizarSalvajeButton" default-binding="true">
-        <constraints>
-          <grid row="11" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1886963"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-458761"/>
-          <text value="Randomizar Salvaje"/>
-        </properties>
-      </component>
-      <component id="51996" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font name="JetBrains Mono" size="48" style="1"/>
-          <foreground color="-458761"/>
-          <text value="VS"/>
-        </properties>
-      </component>
-      <vspacer id="dcb94">
-        <constraints>
-          <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </vspacer>
-      <component id="ea6e4" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="9" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <foreground color="-1"/>
-          <text value="Victorias salvaje:"/>
-        </properties>
-      </component>
-      <component id="8db5a" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="9" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <foreground color="-1"/>
-          <text value="Victorias entrenador:"/>
-        </properties>
-      </component>
-      <component id="36771" class="javax.swing.JLabel" binding="contEntrenadorLabel">
-        <constraints>
-          <grid row="9" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <foreground color="-1"/>
-          <text value=""/>
-        </properties>
-      </component>
-      <component id="792d2" class="javax.swing.JLabel" binding="contSalvajeLabel">
-        <constraints>
-          <grid row="9" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <foreground color="-1"/>
-          <text value=""/>
-        </properties>
-      </component>
-      <component id="1061d" class="javax.swing.JButton" binding="lucharButton" default-binding="true">
-        <constraints>
-          <grid row="11" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1886963"/>
-          <foreground color="-458761"/>
-          <text value="Luchar!"/>
-        </properties>
-      </component>
-      <component id="4c40b" class="javax.swing.JLabel" binding="vidaPokeEntrenador">
-        <constraints>
-          <grid row="6" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-1"/>
-          <font name="JetBrains Mono NL" style="1"/>
-          <foreground color="-1"/>
-          <text value="VidaPoke:"/>
-        </properties>
-      </component>
-      <component id="48c62" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <foreground color="-458761"/>
-          <text value="Num Pokédex:"/>
-        </properties>
-      </component>
-      <component id="78f57" class="javax.swing.JLabel" binding="pokedexIdEntrenadorLabel">
-        <constraints>
-          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <foreground color="-458761"/>
-          <text value="Label"/>
-        </properties>
-      </component>
-      <component id="bd440" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <foreground color="-458761"/>
-          <text value="Num Pokédex:"/>
-        </properties>
-      </component>
-      <component id="a4434" class="javax.swing.JLabel" binding="pokedexIdSalvajeLabel">
-        <constraints>
-          <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <foreground color="-458761"/>
-          <text value="Label"/>
         </properties>
       </component>
     </children>
