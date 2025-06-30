@@ -53,21 +53,24 @@ public class PracticaPokemonAPI {
 
             JSONObject json = new JSONObject(response.body());
 
-            System.out.println("-- Pokédex Nacional --");
-            System.out.println("Número Pokédex: " + json.getInt("id"));
-            System.out.println("Pokémon: " + json.getString("name"));
+            System.out.println("-- National Pokédex --");
+            System.out.println("Pokedex Number: " + json.getInt("id"));
+            System.out.println("Pokemon: " + json.getString("name"));
 
             // Recorriendo el array "abilities"
-            System.out.println("-- Habilidades --");
+            System.out.println("-- Abilities --");
             json.getJSONArray("abilities").forEach(ability ->{
                 JSONObject jsonObject = (JSONObject) ability;
                 JSONObject abilityInfo = jsonObject.getJSONObject("ability");
-                System.out.println("Habilidad: " + abilityInfo.getString("name"));
+                System.out.println("Ability: " + abilityInfo.getString("name"));
             });
 
             int hp = 0;
             int attack = 0;
             int defense = 0;
+            int sp_attack = 0;
+            int sp_defense = 0;
+            int speed = 0;
 
             //Recorriendo el array "stats"
             System.out.println("-- Pokémon Stats --");
@@ -88,15 +91,37 @@ public class PracticaPokemonAPI {
                     case "defense":
                         defense = baseStat;
                         break;
+                    case "special-attack":
+                        sp_attack = baseStat;
+                        break;
+                    case "special-defense":
+                        sp_defense = baseStat;
+                        break;
+                    case "speed":
+                        speed = baseStat;
                 }
 
             }
-                System.out.println("Hp: " + hp);
-                System.out.println("Attack: " + attack);
-                System.out.println("Defense: " + defense);
+
+
+            System.out.println("Hp: " + hp);
+            System.out.println("Attack: " + attack);
+            System.out.println("Defense: " + defense);
+            System.out.println("Special Attack: " + sp_attack);
+            System.out.println("Special Defense: " + sp_defense);
+            System.out.println("Speed: " + speed);
+
+            // Tipo del Pokémon
+            System.out.println(" -- Types --");
+            json.getJSONArray("types").forEach(type ->{ //Entra al array de tipos y recorre cada tipo de objeto
+                JSONObject jsonObject = (JSONObject) type; // Castea el type a ser un objeto implícitamente
+                JSONObject typeInfo = jsonObject.getJSONObject("type");
+                System.out.println("Type: " + typeInfo.getString("name"));
+            });
+
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado al conectar con la API: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "An error has ocured with the API connection: " + e.getMessage());
             e.printStackTrace();
         }
     }
