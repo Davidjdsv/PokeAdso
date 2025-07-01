@@ -107,17 +107,20 @@ public class BatallaPokemon {
     }
 
 
+    // Todo: Método para actualizar los Pokémon al inicio de la app
     private void actualizarPokemones() {
         obtenerPokemon(idEntrenador, true);
         obtenerPokemon(idSalvaje, false);
         actualizarInterfaz();
     }
 
+    // Método para actualizar los pokémon del entrenador
     private void actualizarPokemonEntrenador() {
         obtenerPokemon(idEntrenador, true);
         actualizarInterfaz();
     }
 
+    // Método para actualizar los pokémon del rival
     private void actualizarPokemonSalvaje() {
         obtenerPokemon(idSalvaje, false);
         actualizarInterfaz();
@@ -201,8 +204,8 @@ public class BatallaPokemon {
                 }
 
                 // Obtener la imagen
-                String imageURL = json.getJSONObject("sprites").getString("front_default");
-                ImageIcon icon = new ImageIcon(new URL(imageURL));
+                String imageURL = json.getJSONObject("sprites").getString("front_default"); //Obtener el dato json de los sprites, justo el front_default
+                ImageIcon icon = new ImageIcon(new URL(imageURL)); //Toma la imágen por su URL
                 Image scaledImage = icon.getImage().getScaledInstance(150, 250, Image.SCALE_SMOOTH);
                 ImageIcon imagen = new ImageIcon(scaledImage);
 

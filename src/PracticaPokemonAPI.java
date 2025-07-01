@@ -119,6 +119,53 @@ public class PracticaPokemonAPI {
                 System.out.println("Type: " + typeInfo.getString("name"));
             });
 
+            // Obtener la descripción del pokémon
+            // 1. Obtener la URL del objeto "species"
+            // El objeto "species" contiene la URL para la información de la especie del Pokémon
+            String speciesURL = json.getJSONObject("species").getString("url");
+
+            // 2. Construir una nueva solicitud HTTP para la URL de la especie
+            HttpRequest specieshttpRequest = HttpRequest.newBuilder().uri(URI.create(speciesURL)).GET().build();
+
+            // 3. Enviar la nueva solicitud y obtener la respuesta de la especie
+            HttpResponse<String> speciesResponse = httpClient.send(specieshttpRequest, HttpResponse.BodyHandlers.ofString());
+
+            if(speciesResponse.statusCode() == 200){
+                JSONObject speciesJson = new JSONObject(speciesResponse.body());
+
+                System.out.println("-- Desciption --");
+                JSONArray flavor_text_entries = speciesJson.getJSONArray("flavor_text_entries"); // Obtener el array
+                String flavorTextEs = null; // Para almacenar la descripción en español
+                String flavorTextEn = null; // Para almacenar la descripción en inglés (fallback)
+                for (int i = 0; i < flavor_text_entries.length(); i++) {
+                    JSONObject entry = flavor_text_entries.getJSONObject(i);
+                    String text = entry.getString("flavor_text").replace("\n", " ").replace("\f", " "); // Limpiar saltos de línea y saltos de página
+                    String language = entry.getJSONObject("language").getString("name");
+
+                    // Priorizar la descripción en español
+                    if ("es".equals(language)) {
+                        flavorTextEs = text;
+                        break; // Si encontramos español, no necesitamos buscar más
+                    }
+                    // Guardar la descripción en inglés como fallback
+                    if ("en".equals(language) && flavorTextEn == null) {
+                        flavorTextEn = text;
+                    }
+
+
+                }
+                    if (flavorTextEs != null) {
+                        System.out.println(flavorTextEs);
+                    } else if (flavorTextEn != null) {
+                        System.out.println(flavorTextEn); // Si no hay español, usar inglés
+                    } else {
+                        System.out.println("No se encontró una descripción en español o inglés.");
+                    }
+
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Error obtaining the Pokemon's description. Error: " + speciesResponse.statusCode());
+            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "An error has ocured with the API connection: " + e.getMessage());
