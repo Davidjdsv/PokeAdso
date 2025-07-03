@@ -10,6 +10,7 @@ public class ReproducirMusica {
     private boolean enReproduccion = false;
     private String archivoActual; // Variable que guarda la ruta del archivo
 
+    //loop de los soundtracks
     public void reproducir(String archivo) {
         detener();  // Detener cualquier reproducción anterior
 
@@ -34,6 +35,20 @@ public class ReproducirMusica {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // Para efectos de sonido (una sola vez)
+    public void reproducirEfecto(String archivo) {
+        new Thread(() -> {
+            try (InputStream is = getClass().getResourceAsStream(archivo)) {
+                if (is != null) {
+                    Player efecto = new Player(new BufferedInputStream(is));
+                    efecto.play();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public void detener() {

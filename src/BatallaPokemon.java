@@ -67,6 +67,17 @@ public class BatallaPokemon {
     public int idEntrenador;
     public int idSalvaje;
 
+    // Variables con las rutas de cada soundtrack
+    String sountrack1 = "Media/Pokemon Black & White 2 OST Legendary Battle Music.mp3";
+    String sountrack2 = "Media/Pokemon Black & White 2 OST Rare Wild Battle Music.mp3";
+    String sountrack3 = "Media/Pokemon Black & White 2 OST Reshiram_Zekrom Battle Music.mp3";
+    String sountrack4 = "Media/Pokemon Black & White 2 OST Trainer Battle Music.mp3";
+    String sountrack5 = "Media/Pokemon Black & White 2 OST Wild Battle Music.mp3";
+
+    // Array que contiene las rutas de los soundtracks
+    public String[] soundTracks = {sountrack1, sountrack2, sountrack3, sountrack4, sountrack5};
+
+
     //Instanciando la clase ReproducirMusica
     private ReproducirMusica reproductor;
     ReproducirMusica reproducirMusica = new ReproducirMusica();
@@ -81,6 +92,9 @@ public class BatallaPokemon {
         // Obtener el nombre del entrenador
         String nombre = JOptionPane.showInputDialog("¿Cómo te llamas, jóven maestro Pokémon? ");
         nombreEntrenadorLabel.setText(nombre); // En el label "nombreEntrenadorLabel", "seteamos"/agregamos el nombre que haya ingresado el usuario
+
+        String soundTrackElegido = randomSoundTrack(soundTracks);
+        reproductor.reproducir(soundTrackElegido);
 
         // Generar primeros Pokémon
         idEntrenador = generarIdAleatorio();
@@ -151,8 +165,17 @@ public class BatallaPokemon {
         imagenPokeSalvaje.setIcon(imagenSalvaje);
     }
 
-    // Inicializar reproductor
-
+    /**
+     *
+    // TODO: Metódo para tomar el array que contiene los soundtracks y retornar uno aleatorio del índice
+     * @param sountrack
+     * @return
+     */
+    public String randomSoundTrack(String[] sountrack){
+        if (soundTracks.length == 0) return "El array está vacío. Por favor añada música";
+        int randomIndice = random.nextInt(sountrack.length);
+        return  soundTracks[randomIndice];
+    }
 
     /**
     @author Davidjdsv
