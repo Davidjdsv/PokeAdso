@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="badlogicgames.jlayer" type="repository">
+    <properties maven-id="com.badlogicgames.jlayer:jlayer:1.0.2-gdx" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/badlogicgames/jlayer/jlayer/1.0.2-gdx/jlayer-1.0.2-gdx.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

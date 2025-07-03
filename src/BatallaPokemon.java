@@ -12,6 +12,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Random;
 
+
 public class BatallaPokemon {
     private JPanel main;
 
@@ -66,11 +67,17 @@ public class BatallaPokemon {
     public int idEntrenador;
     public int idSalvaje;
 
+    //Instanciando la clase ReproducirMusica
+    private ReproducirMusica reproductor;
+    ReproducirMusica reproducirMusica = new ReproducirMusica();
+
     /**
      @author
      * En el constructor, agregamos los botones y dentro de cada botón, agregamos que se disparen las funciones requeridas.
      */
     BatallaPokemon() {
+        reproductor = new ReproducirMusica();
+
         // Obtener el nombre del entrenador
         String nombre = JOptionPane.showInputDialog("¿Cómo te llamas, jóven maestro Pokémon? ");
         nombreEntrenadorLabel.setText(nombre); // En el label "nombreEntrenadorLabel", "seteamos"/agregamos el nombre que haya ingresado el usuario
@@ -144,12 +151,16 @@ public class BatallaPokemon {
         imagenPokeSalvaje.setIcon(imagenSalvaje);
     }
 
+    // Inicializar reproductor
+
+
     /**
     @author Davidjdsv
      Randomiza el Pokémon de entre los más de 1000 existentes
      */
     public int generarIdAleatorio() {
-        return random.nextInt(1025) + 1;
+        //max - min + 1 = 649 - 494 + 1 = 155 + 1 = 156
+        return random.nextInt(156) + 494; // La pokédex de Teselia
     }
 
 
@@ -201,7 +212,15 @@ public class BatallaPokemon {
                 }
 
                 // Obtener la imagen
-                String imageURL = json.getJSONObject("sprites").getString("front_default");
+                String imageTrainer = "back_default";
+                String imageWild = "front_default";
+                String imageURL;
+
+                if (esEntrenador){
+                    imageURL = json.getJSONObject("sprites").getString(imageTrainer);
+                } else {
+                    imageURL = json.getJSONObject("sprites").getString(imageWild);
+                }
                 ImageIcon icon = new ImageIcon(new URL(imageURL));
                 Image scaledImage = icon.getImage().getScaledInstance(150, 250, Image.SCALE_SMOOTH);
                 ImageIcon imagen = new ImageIcon(scaledImage);
@@ -268,7 +287,7 @@ public class BatallaPokemon {
             frame.setContentPane(new BatallaPokemon().main);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
-            frame.setSize(1006, 550);
+            frame.setSize(1006, 750);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
