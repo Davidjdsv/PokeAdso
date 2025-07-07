@@ -265,22 +265,14 @@ public class BatallaPokemon {
 
                 // TODO: Crear la imágen una sola vez
                 ImageIcon pokemonGif = null;
-                JLabel pokemonSpriteLabel = null;
 
                 try {
-                    if(spriteURL != null && !spriteURL.isEmpty()){
+                    if(spriteURL != null && !spriteURL.isEmpty()) {
                         pokemonGif = new ImageIcon(new URL(spriteURL));
-                        pokemonSpriteLabel = new JLabel(pokemonGif);
-                        pokemonSpriteLabel.setPreferredSize(new Dimension(1000, 1000));
-                    } else {
-                        pokemonSpriteLabel = new JLabel("Error al cargar la imágen");
-                        pokemonSpriteLabel.setPreferredSize(new Dimension(1000, 1000));
                     }
                 } catch (Exception e) {
                     System.err.println("Error al cargar la imágen: (" + spritePoke + "). " + e.getMessage());
                     e.printStackTrace();
-                    pokemonSpriteLabel = new JLabel("Error al cargar la imágen de excepción");
-                    pokemonSpriteLabel.setPreferredSize(new Dimension(300, 300));
                 }
 
                 // TODO: Asignando las estadísticas a cada Pokémon
