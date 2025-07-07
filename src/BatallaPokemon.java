@@ -1,4 +1,5 @@
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Random;
+
 
 public class BatallaPokemon {
     private JPanel main;
@@ -31,8 +33,8 @@ public class BatallaPokemon {
     private JLabel nombrePokeSalvaje;
 
     // Imagenes random
-    private JLabel imagenPokeEntrenador;
-    private JLabel imagenPokeSalvaje;
+    private JLabel imagenPokeEntrenadorLabel;
+    private JLabel imagenPokeSalvajeLabel;
 
     //Botones para el random
     private JButton randomizarEntrenadorButton;
@@ -66,14 +68,34 @@ public class BatallaPokemon {
     public int idEntrenador;
     public int idSalvaje;
 
+    // Variables con las rutas de cada soundtrack
+    String sountrack1 = "Media/Pokemon Black & White 2 OST Legendary Battle Music.mp3";
+    String sountrack2 = "Media/Pokemon Black & White 2 OST Rare Wild Battle Music.mp3";
+    String sountrack3 = "Media/Pokemon Black & White 2 OST Reshiram_Zekrom Battle Music.mp3";
+    String sountrack4 = "Media/Pokemon Black & White 2 OST Trainer Battle Music.mp3";
+    String sountrack5 = "Media/Pokemon Black & White 2 OST Wild Battle Music.mp3";
+
+    // Array que contiene las rutas de los soundtracks
+    public String[] soundTracks = {sountrack1, sountrack2, sountrack3, sountrack4, sountrack5};
+
+
+    //Instanciando la clase ReproducirMusica
+    private ReproducirMusica reproductor;
+    ReproducirMusica reproducirMusica = new ReproducirMusica();
+
     /**
      @author
      * En el constructor, agregamos los botones y dentro de cada botón, agregamos que se disparen las funciones requeridas.
      */
     BatallaPokemon() {
+        reproductor = new ReproducirMusica();
+
         // Obtener el nombre del entrenador
         String nombre = JOptionPane.showInputDialog("¿Cómo te llamas, jóven maestro Pokémon? ");
         nombreEntrenadorLabel.setText(nombre); // En el label "nombreEntrenadorLabel", "seteamos"/agregamos el nombre que haya ingresado el usuario
+
+        String soundTrackElegido = randomSoundTrack(soundTracks);
+        reproductor.reproducir(soundTrackElegido);
 
         // Generar primeros Pokémon
         idEntrenador = generarIdAleatorio();
@@ -107,20 +129,17 @@ public class BatallaPokemon {
     }
 
 
-    // Todo: Método para actualizar los Pokémon al inicio de la app
     private void actualizarPokemones() {
         obtenerPokemon(idEntrenador, true);
         obtenerPokemon(idSalvaje, false);
         actualizarInterfaz();
     }
 
-    // Método para actualizar los pokémon del entrenador
     private void actualizarPokemonEntrenador() {
         obtenerPokemon(idEntrenador, true);
         actualizarInterfaz();
     }
 
-    // Método para actualizar los pokémon del rival
     private void actualizarPokemonSalvaje() {
         obtenerPokemon(idSalvaje, false);
         actualizarInterfaz();
@@ -137,14 +156,26 @@ public class BatallaPokemon {
         pokedexIdEntrenadorLabel.setText("Id Pokédex: " + idPokeEntrenador);
         ataquePokeEntrenador.setText("Ataque: " + ataqueEntrenador);
         defensaPokeEntrenador.setText("Defensa: " + defensaEntrenador);
-        imagenPokeEntrenador.setIcon(imagenEntrenador);
+        imagenPokeEntrenadorLabel.setIcon(imagenEntrenador);
 
         nombrePokeSalvaje.setText(nombrePokemonSalvaje);
         vidaPokeSalvaje.setText("HP: " + hpSalvaje);
         pokedexIdSalvajeLabel.setText("Id Pokédex: " + idPokeSalvaje);
         ataquePokeSalvaje.setText("Ataque: " + ataqueSalvaje);
         defensaPokeSalvaje.setText("Defensa: " + defensaSalvaje);
-        imagenPokeSalvaje.setIcon(imagenSalvaje);
+        imagenPokeSalvajeLabel.setIcon(imagenSalvaje);
+    }
+
+    /**
+     *
+    // TODO: Metódo para tomar el array que contiene los soundtracks y retornar uno aleatorio del índice
+     * @param sountrack
+     * @return
+     */
+    public String randomSoundTrack(String[] sountrack){
+        if (soundTracks.length == 0) return "El array está vacío. Por favor añada música";
+        int randomIndice = random.nextInt(sountrack.length);
+        return  soundTracks[randomIndice];
     }
 
     /**
@@ -152,7 +183,8 @@ public class BatallaPokemon {
      Randomiza el Pokémon de entre los más de 1000 existentes
      */
     public int generarIdAleatorio() {
-        return random.nextInt(1025) + 1;
+        //max - min + 1 = 649 - 494 + 1 = 155 + 1 = 156
+        return random.nextInt(156) + 494; // La pokédex de Teselia
     }
 
 
@@ -203,28 +235,71 @@ public class BatallaPokemon {
                     }
                 }
 
-                // Obtener la imagen
-                String imageURL = json.getJSONObject("sprites").getString("front_default"); //Obtener el dato json de los sprites, justo el front_default
-                ImageIcon icon = new ImageIcon(new URL(imageURL)); //Toma la imágen por su URL
-                Image scaledImage = icon.getImage().getScaledInstance(150, 250, Image.SCALE_SMOOTH);
-                ImageIcon imagen = new ImageIcon(scaledImage);
+                // TODO: Declarando variables
+                String spriteURL = null, spritePoke = null;
 
-                // Almacenar los datos según corresponda
-                if (esEntrenador) {
+                // TODO: Decidir si es el entrenador o el rival
+                if(esEntrenador){
+                    spritePoke = "back_default";
+                } else {
+                    spritePoke = "front_default";
+                }
+
+                //TODO: Intentar tomar la URL del sprite animado de la gen-5
+                try {
+                    spriteURL = json.getJSONObject("sprites")
+                            .getJSONObject("versions")
+                            .getJSONObject("generation-v")
+                            .getJSONObject("black-white")
+                            .getJSONObject("animated").getString(spritePoke);
+                    //TODO: Captruando el mensaje de error si no encuentra la url del pokémon de la gen-V
+                } catch (JSONException e) {
+                    System.err.println("Advertencia: No se encontré el sprite animado de la generación V (" + spritePoke + "). " + e.getMessage());
+                    try{
+                        spriteURL = json.getJSONObject("sprites").getString(spritePoke);
+                        System.out.println("Se usará entonces el sprite estático por defecto: (" + spritePoke + ")");
+                    } catch (JSONException eFallBack) {
+                        System.err.println("Error: No se pudo encontrar un sprite para el Pokémon: " + spritePoke + ")" + eFallBack.getMessage());
+                    }
+                }
+
+                // TODO: Crear la imágen una sola vez
+                ImageIcon pokemonGif = null;
+                JLabel pokemonSpriteLabel = null;
+
+                try {
+                    if(spriteURL != null && !spritePoke.isEmpty()){
+                        pokemonGif = new ImageIcon(new URL(spritePoke));
+                        pokemonSpriteLabel = new JLabel(pokemonGif);
+                        pokemonSpriteLabel.setPreferredSize(new Dimension(300, 300));
+                    } else {
+                        pokemonSpriteLabel = new JLabel("Error al cargar la imágen");
+                        pokemonSpriteLabel.setPreferredSize(new Dimension(300, 300));
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error al cargar la imágen: (" + spritePoke + "). " + e.getMessage());
+                    e.printStackTrace();
+                    pokemonSpriteLabel = new JLabel("Error al cargar la imágen de excepción");
+                    pokemonSpriteLabel.setPreferredSize(new Dimension(300, 300));
+                }
+
+                // TODO: Asignando las estadísticas a cada Pokémon
+                if(esEntrenador){
                     nombrePokemonEntrenador = nombre;
                     idPokeEntrenador = idPoke;
                     hpEntrenador = hp;
                     ataqueEntrenador = attack;
                     defensaEntrenador = defense;
-                    imagenEntrenador = imagen;
+                    imagenEntrenador = pokemonGif;
                 } else {
                     nombrePokemonSalvaje = nombre;
-                    idPokeSalvaje = idPoke;
+                    idSalvaje = idPoke;
                     hpSalvaje = hp;
                     ataqueSalvaje = attack;
                     defensaSalvaje = defense;
-                    imagenSalvaje = imagen;
+                    imagenSalvaje = pokemonGif;
                 }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -271,7 +346,7 @@ public class BatallaPokemon {
             frame.setContentPane(new BatallaPokemon().main);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
-            frame.setSize(1006, 550);
+            frame.setSize(1006, 750);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
