@@ -1,4 +1,5 @@
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -32,8 +33,8 @@ public class BatallaPokemon {
     private JLabel nombrePokeSalvaje;
 
     // Imagenes random
-    private JLabel imagenPokeEntrenador;
-    private JLabel imagenPokeSalvaje;
+    private JLabel imagenPokeEntrenadorLabel;
+    private JLabel imagenPokeSalvajeLabel;
 
     //Botones para el random
     private JButton randomizarEntrenadorButton;
@@ -155,14 +156,14 @@ public class BatallaPokemon {
         pokedexIdEntrenadorLabel.setText("Id Pokédex: " + idPokeEntrenador);
         ataquePokeEntrenador.setText("Ataque: " + ataqueEntrenador);
         defensaPokeEntrenador.setText("Defensa: " + defensaEntrenador);
-        imagenPokeEntrenador.setIcon(imagenEntrenador);
+        imagenPokeEntrenadorLabel.setIcon(imagenEntrenador);
 
         nombrePokeSalvaje.setText(nombrePokemonSalvaje);
         vidaPokeSalvaje.setText("HP: " + hpSalvaje);
         pokedexIdSalvajeLabel.setText("Id Pokédex: " + idPokeSalvaje);
         ataquePokeSalvaje.setText("Ataque: " + ataqueSalvaje);
         defensaPokeSalvaje.setText("Defensa: " + defensaSalvaje);
-        imagenPokeSalvaje.setIcon(imagenSalvaje);
+        imagenPokeSalvajeLabel.setIcon(imagenSalvaje);
     }
 
     /**
@@ -234,36 +235,71 @@ public class BatallaPokemon {
                     }
                 }
 
-                // Obtener la imagen
-                String imageTrainer = "back_default";
-                String imageWild = "front_default";
-                String imageURL;
+                // TODO: Declarando variables
+                String spriteURL = null, spritePoke = null;
 
-                if (esEntrenador){
-                    imageURL = json.getJSONObject("sprites").getString(imageTrainer);
+                // TODO: Decidir si es el entrenador o el rival
+                if(esEntrenador){
+                    spritePoke = "back_default";
                 } else {
-                    imageURL = json.getJSONObject("sprites").getString(imageWild);
+                    spritePoke = "front_default";
                 }
-                ImageIcon icon = new ImageIcon(new URL(imageURL));
-                Image scaledImage = icon.getImage().getScaledInstance(150, 250, Image.SCALE_SMOOTH);
-                ImageIcon imagen = new ImageIcon(scaledImage);
 
-                // Almacenar los datos según corresponda
-                if (esEntrenador) {
+                //TODO: Intentar tomar la URL del sprite animado de la gen-5
+                try {
+                    spriteURL = json.getJSONObject("sprites")
+                            .getJSONObject("versions")
+                            .getJSONObject("generation-v")
+                            .getJSONObject("black-white")
+                            .getJSONObject("animated").getString(spritePoke);
+                    //TODO: Captruando el mensaje de error si no encuentra la url del pokémon de la gen-V
+                } catch (JSONException e) {
+                    System.err.println("Advertencia: No se encontré el sprite animado de la generación V (" + spritePoke + "). " + e.getMessage());
+                    try{
+                        spriteURL = json.getJSONObject("sprites").getString(spritePoke);
+                        System.out.println("Se usará entonces el sprite estático por defecto: (" + spritePoke + ")");
+                    } catch (JSONException eFallBack) {
+                        System.err.println("Error: No se pudo encontrar un sprite para el Pokémon: " + spritePoke + ")" + eFallBack.getMessage());
+                    }
+                }
+
+                // TODO: Crear la imágen una sola vez
+                ImageIcon pokemonGif = null;
+                JLabel pokemonSpriteLabel = null;
+
+                try {
+                    if(spriteURL != null && !spritePoke.isEmpty()){
+                        pokemonGif = new ImageIcon(new URL(spritePoke));
+                        pokemonSpriteLabel = new JLabel(pokemonGif);
+                        pokemonSpriteLabel.setPreferredSize(new Dimension(300, 300));
+                    } else {
+                        pokemonSpriteLabel = new JLabel("Error al cargar la imágen");
+                        pokemonSpriteLabel.setPreferredSize(new Dimension(300, 300));
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error al cargar la imágen: (" + spritePoke + "). " + e.getMessage());
+                    e.printStackTrace();
+                    pokemonSpriteLabel = new JLabel("Error al cargar la imágen de excepción");
+                    pokemonSpriteLabel.setPreferredSize(new Dimension(300, 300));
+                }
+
+                // TODO: Asignando las estadísticas a cada Pokémon
+                if(esEntrenador){
                     nombrePokemonEntrenador = nombre;
                     idPokeEntrenador = idPoke;
                     hpEntrenador = hp;
                     ataqueEntrenador = attack;
                     defensaEntrenador = defense;
-                    imagenEntrenador = imagen;
+                    imagenEntrenador = pokemonGif;
                 } else {
                     nombrePokemonSalvaje = nombre;
-                    idPokeSalvaje = idPoke;
+                    idSalvaje = idPoke;
                     hpSalvaje = hp;
                     ataqueSalvaje = attack;
                     defensaSalvaje = defense;
-                    imagenSalvaje = imagen;
+                    imagenSalvaje = pokemonGif;
                 }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
