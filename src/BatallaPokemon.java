@@ -187,6 +187,17 @@ public class BatallaPokemon {
         return random.nextInt(156) + 494; // La pokédex de Teselia
     }
 
+    // Método para redimensionar ImageIcon manteniendo la proporción
+    public ImageIcon redimensionarImagen(ImageIcon originalIcon, int anchoDeseado, int altoDeseado) {
+        if (originalIcon == null) {
+            return null;
+        }
+
+        Image img = originalIcon.getImage();
+        Image imgRedimensionada = img.getScaledInstance(anchoDeseado, altoDeseado, Image.SCALE_SMOOTH);
+        return new ImageIcon(imgRedimensionada);
+    }
+
 
     /**
      * @author Davidjdsv
@@ -235,6 +246,7 @@ public class BatallaPokemon {
                     }
                 }
 
+
                 // TODO: Declarando variables
                 String spriteURL = null, spritePoke = null;
 
@@ -265,14 +277,26 @@ public class BatallaPokemon {
 
                 // TODO: Crear la imágen una sola vez
                 ImageIcon pokemonGif = null;
+                JLabel pokemonSpriteLabel = null;
 
                 try {
-                    if(spriteURL != null && !spriteURL.isEmpty()) {
+                    if(spriteURL != null && !spriteURL.isEmpty()){
                         pokemonGif = new ImageIcon(new URL(spriteURL));
+
+                        // Supuestamente paara el tamaño pero si se descomenta, deja de mostrar los gif
+                        //pokemonGif = redimensionarImagen(pokemonGif, 250, 250);
+
+                        pokemonSpriteLabel = new JLabel(pokemonGif);
+                        pokemonSpriteLabel.setPreferredSize(new Dimension(250, 250));
+                    } else {
+                        pokemonSpriteLabel = new JLabel("Error al cargar la imágen");
+                        pokemonSpriteLabel.setPreferredSize(new Dimension(250, 250));
                     }
                 } catch (Exception e) {
                     System.err.println("Error al cargar la imágen: (" + spritePoke + "). " + e.getMessage());
                     e.printStackTrace();
+                    pokemonSpriteLabel = new JLabel("Error al cargar la imágen de excepción");
+                    pokemonSpriteLabel.setPreferredSize(new Dimension(250, 250)); // CORREGIDO: Cambié de 300 a 250
                 }
 
                 // TODO: Asignando las estadísticas a cada Pokémon
