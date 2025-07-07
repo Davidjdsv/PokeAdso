@@ -268,13 +268,13 @@ public class BatallaPokemon {
                 JLabel pokemonSpriteLabel = null;
 
                 try {
-                    if(spriteURL != null && !spritePoke.isEmpty()){
-                        pokemonGif = new ImageIcon(new URL(spritePoke));
+                    if(spriteURL != null && !spriteURL.isEmpty()){
+                        pokemonGif = new ImageIcon(new URL(spriteURL));
                         pokemonSpriteLabel = new JLabel(pokemonGif);
-                        pokemonSpriteLabel.setPreferredSize(new Dimension(300, 300));
+                        pokemonSpriteLabel.setPreferredSize(new Dimension(1000, 1000));
                     } else {
                         pokemonSpriteLabel = new JLabel("Error al cargar la imágen");
-                        pokemonSpriteLabel.setPreferredSize(new Dimension(300, 300));
+                        pokemonSpriteLabel.setPreferredSize(new Dimension(1000, 1000));
                     }
                 } catch (Exception e) {
                     System.err.println("Error al cargar la imágen: (" + spritePoke + "). " + e.getMessage());
@@ -293,7 +293,7 @@ public class BatallaPokemon {
                     imagenEntrenador = pokemonGif;
                 } else {
                     nombrePokemonSalvaje = nombre;
-                    idSalvaje = idPoke;
+                    idPokeSalvaje = idPoke;
                     hpSalvaje = hp;
                     ataqueSalvaje = attack;
                     defensaSalvaje = defense;
