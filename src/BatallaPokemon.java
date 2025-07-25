@@ -44,6 +44,7 @@ public class BatallaPokemon {
     private JButton lucharButton;
     private JLabel pokedexIdEntrenadorLabel;
     private JLabel pokedexIdSalvajeLabel;
+    private JButton randomizarSoundtrackButton;
 
     // TODO: Variables para almacenar los datos de los Pokémon
     private String nombrePokemonEntrenador;
@@ -69,12 +70,12 @@ public class BatallaPokemon {
     public int idSalvaje;
 
     // Variables con las rutas de cada soundtrack
-    String sountrack1 = "Media/Pokemon_B&W2_S1.mp3";
-    String sountrack2 = "Media/Pokemon_B&W2_S2.mp3";
-    String sountrack3 = "Media/Pokemon_B&W2_S3.mp3";
-    String sountrack4 = "Media/Pokemon_B&W2_S4_elite_pokemon.mp3";
-    String sountrack5 = "Media/Pokemon_B&W2_S5_cinthya_theme.mp3";
-    String sountrack6 = "Media/Pokemon_B&W2_S6_legendary_battle.mp3";
+    String sountrack1 = "Recursos/Media/Pokemon_B&W2_S1.mp3";
+    String sountrack2 = "Recursos/Media/Pokemon_B&W2_S2.mp3";
+    String sountrack3 = "Recursos/Media/Pokemon_B&W2_S3.mp3";
+    String sountrack4 = "Recursos/Media/Pokemon_B&W2_S4_elite_pokemon.mp3";
+    String sountrack5 = "Recursos/Media/Pokemon_B&W2_S5_cinthya_theme.mp3";
+    String sountrack6 = "Recursos/Media/Pokemon_B&W2_S6_legendary_battle.mp3";
 
     // Array que contiene las rutas de los soundtracks
     public String[] soundTracks = {sountrack1, sountrack2, sountrack3, sountrack4, sountrack5};
@@ -125,6 +126,20 @@ public class BatallaPokemon {
             @Override
             public void actionPerformed(ActionEvent e) {
                 combatirPokemon();
+            }
+        });
+
+        randomizarSoundtrackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 1. Detener la música que se está reproduciendo actualmente
+                reproductor.detener();
+
+                // 2. Elegir un NUEVO soundtrack aleatorio CADA VEZ que se presiona el botón
+                String nuevoSoundTrackElegido = randomSoundTrack(soundTracks);
+
+                // 3. Reproducir el nuevo soundtrack
+                reproductor.reproducir(nuevoSoundTrackElegido);
             }
         });
     }
