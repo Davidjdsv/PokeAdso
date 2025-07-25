@@ -9,7 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="flatlaf-3.2" level="project" />
     <orderEntry type="library" name="json" level="project" />
-    <orderEntry type="library" name="badlogicgames.jlayer" level="project" />
     <orderEntry type="library" name="de.huxhorn.sulky.sounds.impl.jlayer" level="project" />
   </component>
 </module>

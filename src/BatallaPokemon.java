@@ -69,11 +69,12 @@ public class BatallaPokemon {
     public int idSalvaje;
 
     // Variables con las rutas de cada soundtrack
-    String sountrack1 = "Media/Pokemon Black & White 2 OST Legendary Battle Music.mp3";
-    String sountrack2 = "Media/Pokemon Black & White 2 OST Rare Wild Battle Music.mp3";
-    String sountrack3 = "Media/Pokemon Black & White 2 OST Reshiram_Zekrom Battle Music.mp3";
-    String sountrack4 = "Media/Pokemon Black & White 2 OST Trainer Battle Music.mp3";
-    String sountrack5 = "Media/Pokemon Black & White 2 OST Wild Battle Music.mp3";
+    String sountrack1 = "Media/Pokemon_B&W2_S1.mp3";
+    String sountrack2 = "Media/Pokemon_B&W2_S2.mp3";
+    String sountrack3 = "Media/Pokemon_B&W2_S3.mp3";
+    String sountrack4 = "Media/Pokemon_B&W2_S4_elite_pokemon.mp3";
+    String sountrack5 = "Media/Pokemon_B&W2_S5_cinthya_theme.mp3";
+    String sountrack6 = "Media/Pokemon_B&W2_S6_legendary_battle.mp3";
 
     // Array que contiene las rutas de los soundtracks
     public String[] soundTracks = {sountrack1, sountrack2, sountrack3, sountrack4, sountrack5};
