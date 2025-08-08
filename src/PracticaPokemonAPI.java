@@ -97,7 +97,7 @@ public class PracticaPokemonAPI {
                     case "special-defense":
                         sp_defense = baseStat;
                         break;
-                    case "speed":
+                    case "velocidad":
                         speed = baseStat;
                 }
 

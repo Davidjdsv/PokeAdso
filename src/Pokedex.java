@@ -1,13 +1,16 @@
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Locale;
 
 public class Pokedex {
     private JPanel main;
@@ -21,16 +24,17 @@ public class Pokedex {
     private JLabel special_defense_pokemon_label;
     private JLabel speed_pokemon_label;
     private JLabel img_pokemon_label;
-    private JButton buscarPokémonButton;
+    private JButton buscarPokemonButton;
 
-    Pokedex(){
+    Pokedex() {
 
-        buscarPokémonButton.addActionListener(new ActionListener() {
+        buscarPokemonButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String consulta = buscarPokemon();
-                if(consulta != null || consulta.trim().isEmpty()){
+                if (consulta != null || consulta.trim().isEmpty()) {
                     obtenerPokemonAPI(consulta);
+                    insertarDatos();
                 } else {
                     JOptionPane.showMessageDialog(main, "Por favor, ingrese un nombre o número de Pokémon.", "Campo Vacío", JOptionPane.WARNING_MESSAGE);
                 }
@@ -38,28 +42,122 @@ public class Pokedex {
         });
     }
 
-    public String buscarPokemon(){
+    //TODO: Variables, Estadísticas y datos del pokemon
+    int id_pokedex = 0;
+    String nombre = null;
+    int hp = 0;
+    int ataque = 0;
+    int ataque_especial = 0;
+    int defensa = 0;
+    int defensa_especial = 0;
+    int velocidad = 0;
+    String descripcion = null;
+    String sprite = null;
+
+
+    public String buscarPokemon() {
         return JOptionPane.showInputDialog("Ingrese el nombre o el número del Pokémon: ");
+    }
+
+    public void insertarDatos(){
+        nombrePokemonLabel.setText(nombre);
+        numero_pokedex_label.setText(String.valueOf(id_pokedex));
+        hp_pokemon_label.setText(String.valueOf(hp));
+        attack_pokemon_label.setText(String.valueOf(ataque));
+        defense_pokemon_label.setText(String.valueOf(defensa));
+        special_attack_pokemon_label.setText(String.valueOf(ataque_especial));
+        special_defense_pokemon_label.setText(String.valueOf(defensa_especial));
+        speed_pokemon_label.setText(String.valueOf(velocidad));
+        //img_pokemon_label.setIcon(sprite);
     }
 
     //String consulta = buscarPokemon();
 
-    public String obtenerPokemonAPI(String pokemonSeleccionado){
-        try{
+    public String obtenerPokemonAPI(String pokemonSeleccionado) {
+        try {
             // TODO: Obteniendo la PokeAPI por su URL
             HttpClient httpClient = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://pokeapi.co/api/v2/pokemon-species/" + pokemonSeleccionado ))
+                    .uri(URI.create("https://pokeapi.co/api/v2/pokemon/" + pokemonSeleccionado))
                     .GET()
                     .build();
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
             //TODO: Obteniendo los datos Json de la pokeAPI
-            if(response.statusCode() == 200){
+            if (response.statusCode() == 200) {
                 JSONObject json = new JSONObject(response.body());
-                String nombre = json.getString("name");
+                nombre = json.getString("name");
+                id_pokedex = json.getInt("id");
 
+                JSONArray stats = json.getJSONArray("stats");
+                for (int i = 0; i < stats.length(); i++) {
+                    JSONObject stat = stats.getJSONObject(i);//Recorre los stats en la posición i que es el objeto de 'stat'
+                    String statName = stat.getJSONObject("stat").getString("name");//nombre del stat
+                    int baseStat = stat.getInt("base_stat");//estadísticas del stat
 
+                    switch (statName) {
+                        case "hp":
+                            hp = baseStat;
+                            break;
+                        case "attack":
+                            ataque = baseStat;
+                            break;
+                        case "defense":
+                            defensa = baseStat;
+                            break;
+                        case "special-attack":
+                            ataque_especial = baseStat;
+                            break;
+                        case "special-defense":
+                            defensa_especial = baseStat;
+                            break;
+                        case "velocidad":
+                            velocidad = baseStat;
+                            break;
+                    }
+                }
+
+                //TODO: Obteniendo la imagen o gif del pokémon
+                try {
+                    sprite = json.getJSONObject("sprites")
+                            .getJSONObject("versions")
+                            .getJSONObject("generation-v")
+                            .getJSONObject("black-white")
+                            .getJSONObject("animated").getString("front_default");
+                    //TODO: Captruando el mensaje de error si no encuentra la url del pokémon de la gen-V
+                } catch (JSONException e) {
+                    System.err.println("Advertencia: No se encontré el sprite animado de la generación V. " + e.getMessage());
+                    try {
+                        sprite = json.getJSONObject("sprites").getString("front_default");
+                        System.out.println("Se usará entonces el sprite estático por defecto");
+                    } catch (JSONException eFallBack) {
+                        System.err.println("Error: No se pudo encontrar un sprite para el Pokémon: " + eFallBack.getMessage());
+                    }
+                }
+
+                // TODO: Crear la imágen una sola vez
+                ImageIcon pokemonGif = null;
+                JLabel img_pokemon_label = null;
+
+                try {
+                    if (sprite != null && !sprite.isEmpty()) {
+                        pokemonGif = new ImageIcon(new URL(sprite));
+
+                        // Supuestamente para el tamaño pero si se descomenta, deja de mostrar los gif
+                        //pokemonGif = redimensionarImagen(pokemonGif, 250, 250);
+
+                        img_pokemon_label = new JLabel(pokemonGif);
+                        img_pokemon_label.setPreferredSize(new Dimension(250, 250));
+                    } else {
+                        img_pokemon_label = new JLabel("Error al cargar la imágen");
+                        img_pokemon_label.setPreferredSize(new Dimension(250, 250));
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error al cargar la imágen" + e.getMessage());
+                    e.printStackTrace();
+                    img_pokemon_label = new JLabel("Error al cargar la imágen de excepción");
+                    img_pokemon_label.setPreferredSize(new Dimension(250, 250)); // CORREGIDO: Cambié de 300 a 250
+                }
 
             } else if (response.statusCode() == 404) {
                 JOptionPane.showMessageDialog(main, "Oops!\nEl Pokémon '" + pokemonSeleccionado + "' no existe. Por favor, intente de nuevo.", "Pokémon No Encontrado", JOptionPane.WARNING_MESSAGE);
