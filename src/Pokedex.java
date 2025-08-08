@@ -68,7 +68,6 @@ public class Pokedex {
         special_attack_pokemon_label.setText(String.valueOf(ataque_especial));
         special_defense_pokemon_label.setText(String.valueOf(defensa_especial));
         speed_pokemon_label.setText(String.valueOf(velocidad));
-        //img_pokemon_label.setIcon(sprite);
     }
 
     //String consulta = buscarPokemon();
@@ -111,7 +110,7 @@ public class Pokedex {
                         case "special-defense":
                             defensa_especial = baseStat;
                             break;
-                        case "velocidad":
+                        case "speed":
                             velocidad = baseStat;
                             break;
                     }
@@ -136,21 +135,16 @@ public class Pokedex {
                 }
 
                 // TODO: Crear la imágen una sola vez
-                ImageIcon pokemonGif = null;
-                JLabel img_pokemon_label = null;
 
                 try {
                     if (sprite != null && !sprite.isEmpty()) {
-                        pokemonGif = new ImageIcon(new URL(sprite));
+                        ImageIcon pokemonGif = new ImageIcon(new URL(sprite));
 
-                        // Supuestamente para el tamaño pero si se descomenta, deja de mostrar los gif
-                        //pokemonGif = redimensionarImagen(pokemonGif, 250, 250);
-
-                        img_pokemon_label = new JLabel(pokemonGif);
-                        img_pokemon_label.setPreferredSize(new Dimension(250, 250));
+                        img_pokemon_label.setIcon(pokemonGif);
+                        img_pokemon_label.setText("");
                     } else {
-                        img_pokemon_label = new JLabel("Error al cargar la imágen");
-                        img_pokemon_label.setPreferredSize(new Dimension(250, 250));
+                        img_pokemon_label.setIcon(null);
+                        img_pokemon_label.setText("No se encontró el Pokémon");
                     }
                 } catch (Exception e) {
                     System.err.println("Error al cargar la imágen" + e.getMessage());
