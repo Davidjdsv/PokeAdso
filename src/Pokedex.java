@@ -23,7 +23,7 @@ public class Pokedex {
     private JLabel special_attack_pokemon_label;
     private JLabel special_defense_pokemon_label;
     private JLabel speed_pokemon_label;
-    private JLabel img_pokemon_label;
+    public JLabel img_pokemon_label;
     private JButton buscarPokemonButton;
 
     Pokedex() {
@@ -135,12 +135,11 @@ public class Pokedex {
                 }
 
                 // TODO: Crear la imágen una sola vez
+                CargarImagenAsinc cargarImagenAsinc = new CargarImagenAsinc();
 
                 try {
                     if (sprite != null && !sprite.isEmpty()) {
-                        ImageIcon pokemonGif = new ImageIcon(new URL(sprite));
-
-                        img_pokemon_label.setIcon(pokemonGif);
+                        cargarImagenAsinc.cargar(img_pokemon_label, sprite);
                         img_pokemon_label.setText("");
                     } else {
                         img_pokemon_label.setIcon(null);
