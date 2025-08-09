@@ -2,7 +2,6 @@
 import org.json.JSONArray;              // Importa la clase JSONArray para manejar listas de objetos JSON.
 import org.json.JSONObject;             // Importa la clase JSONObject para manejar objetos JSON individuales.
 
-import javax.swing.*;                   // Parece no ser utilizada en el código actual.
 import java.net.URI;                    // Necesario para construir la URL de la API.
 import java.net.http.HttpClient;        // Cliente HTTP para enviar solicitudes.
 import java.net.http.HttpRequest;       // Objeto para construir la solicitud HTTP.
@@ -12,7 +11,7 @@ import java.util.Random;                // Utilizado para generar IDs de Pokémo
 /*
  * Clase principal para obtener datos de Pokémon desde la PokeAPI.
  */
-class ObtenerPokemonApi {
+class ObtenerPokemonApiExplicacion {
     Random random = new Random(); // Instancia de Random para generar números aleatorios.
 
     /**
@@ -150,7 +149,7 @@ class ObtenerPokemonApi {
      * Crea una instancia de ObtenerPokemonApi y obtiene información para dos Pokémon aleatorios.
      */
     public static void main(String[] args) {
-        ObtenerPokemonApi obtenerPokemonApi = new ObtenerPokemonApi();
+        ObtenerPokemonApiExplicacion obtenerPokemonApi = new ObtenerPokemonApiExplicacion();
 
         // Se obtienen y muestran los datos del primer Pokémon generado aleatoriamente.
         obtenerPokemonApi.obtenerPokemon(obtenerPokemonApi.entrenador1);

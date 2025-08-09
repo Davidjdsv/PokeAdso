@@ -34,6 +34,7 @@ public class Pokedex {
                 String consulta = buscarPokemon();
                 if (consulta != null || consulta.trim().isEmpty()) {
                     obtenerPokemonAPI(consulta);
+                    descPokemon.obtenerDescripcionPokemon(consulta);
                     insertarDatos();
                 } else {
                     JOptionPane.showMessageDialog(main, "Por favor, ingrese un nombre o número de Pokémon.", "Campo Vacío", JOptionPane.WARNING_MESSAGE);
@@ -41,6 +42,8 @@ public class Pokedex {
             }
         });
     }
+
+    DescPokemon descPokemon = new DescPokemon();
 
     //TODO: Variables, Estadísticas y datos del pokemon
     int id_pokedex = 0;
@@ -51,7 +54,7 @@ public class Pokedex {
     int defensa = 0;
     int defensa_especial = 0;
     int velocidad = 0;
-    String descripcion = null;
+    String descripcion = "";
     String sprite = null;
 
 
@@ -68,6 +71,7 @@ public class Pokedex {
         special_attack_pokemon_label.setText(String.valueOf(ataque_especial));
         special_defense_pokemon_label.setText(String.valueOf(defensa_especial));
         speed_pokemon_label.setText(String.valueOf(velocidad));
+        descripcion_poke_label.setText(descripcion);
     }
 
     //String consulta = buscarPokemon();
@@ -87,6 +91,10 @@ public class Pokedex {
                 JSONObject json = new JSONObject(response.body());
                 nombre = json.getString("name");
                 id_pokedex = json.getInt("id");
+
+                DescPokemon descPokemon = new DescPokemon();
+                descripcion = descPokemon.obtenerDescripcionPokemon(nombre);
+
 
                 JSONArray stats = json.getJSONArray("stats");
                 for (int i = 0; i < stats.length(); i++) {
@@ -142,7 +150,7 @@ public class Pokedex {
                         cargarImagenAsinc.cargar(img_pokemon_label, sprite);
                         img_pokemon_label.setText("");
                     } else {
-                        img_pokemon_label.setIcon(null);
+                        img_pokemon_label.setIcon(null); // Poner imagen o gif de algo cargando o no encontrado
                         img_pokemon_label.setText("No se encontró el Pokémon");
                     }
                 } catch (Exception e) {
